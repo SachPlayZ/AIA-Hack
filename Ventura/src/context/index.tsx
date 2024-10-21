@@ -10,6 +10,7 @@ import {
   getContract,
   prepareContractCall,
   sendTransaction,
+  waitForReceipt,
   readContract,
   toWei,
 } from "thirdweb";
@@ -18,7 +19,7 @@ import { createWallet } from "thirdweb/wallets";
 import { ethers } from "ethers";
 import { client } from "../app/client";
 import { formatEther } from "ethers";
-import { ConnectButton, darkTheme, useActiveAccount } from "thirdweb/react";
+import { ConnectButton, useActiveAccount } from "thirdweb/react";
 
 const chain = defineChain(1320);
 
@@ -61,13 +62,13 @@ interface StateContextType {
     image: string,
     video: string,
     equityHolders: { name: string; percentage: bigint }[]
-  ) => Promise<void>;
+  ) => Promise<any>;
   applyForLoan: (
     amount: string,
     purpose: string,
     name: string,
     duration: number
-  ) => Promise<void>;
+  ) => Promise<any>;
   lendLoan: (lId: number, amount: string) => Promise<any>;
   getCampaigns: () => Promise<any[]>;
   getLoanRequests: () => Promise<any[]>;
@@ -147,8 +148,13 @@ export const StateContextProvider = ({ children }: { children: ReactNode }) => {
         transaction: preparedTx,
         account: account,
       });
-
-      console.log("Contract call success", tx);
+      const receipt = await waitForReceipt({
+        client,
+        chain,
+        transactionHash: tx.transactionHash,
+      });
+      console.log("Contract call success", receipt);
+      return receipt.transactionHash;
     } catch (error) {
       console.error("Contract call failure", error);
     }
@@ -186,8 +192,13 @@ export const StateContextProvider = ({ children }: { children: ReactNode }) => {
         transaction: preparedTx,
         account: account,
       });
-
-      console.log("Loan application successful", tx);
+      const receipt = await waitForReceipt({
+        client,
+        chain,
+        transactionHash: tx.transactionHash,
+      });
+      console.log("Loan application successful", receipt);
+      return receipt.transactionHash;
     } catch (error) {
       console.error("Loan application failed", error);
     }
@@ -269,8 +280,12 @@ export const StateContextProvider = ({ children }: { children: ReactNode }) => {
         transaction: preparedTx,
         account: account,
       });
-
-      return tx;
+      const receipt = await waitForReceipt({
+        client,
+        chain,
+        transactionHash: tx.transactionHash,
+      });
+      return receipt.transactionHash;
     } catch (error) {
       console.error("Error lending loan:", error);
       return [];
@@ -291,7 +306,12 @@ export const StateContextProvider = ({ children }: { children: ReactNode }) => {
         account: account,
       });
 
-      return tx;
+      const receipt = await waitForReceipt({
+        client,
+        chain,
+        transactionHash: tx.transactionHash,
+      });
+      return receipt.transactionHash;
     } catch (error) {
       console.error("Error funding startup:", error);
       return [];
@@ -311,7 +331,12 @@ export const StateContextProvider = ({ children }: { children: ReactNode }) => {
         account: account,
       });
 
-      return tx;
+      const receipt = await waitForReceipt({
+        client,
+        chain,
+        transactionHash: tx.transactionHash,
+      });
+      return receipt.transactionHash;
     } catch (error) {
       console.error("Error withdrawing startup funds:", error);
       return [];
@@ -331,7 +356,12 @@ export const StateContextProvider = ({ children }: { children: ReactNode }) => {
         account: account,
       });
 
-      return tx;
+      const receipt = await waitForReceipt({
+        client,
+        chain,
+        transactionHash: tx.transactionHash,
+      });
+      return receipt.transactionHash;
     } catch (error) {
       console.error("Error withdrawing loan funds:", error);
       return [];
@@ -351,7 +381,12 @@ export const StateContextProvider = ({ children }: { children: ReactNode }) => {
         account: account,
       });
 
-      return tx;
+      const receipt = await waitForReceipt({
+        client,
+        chain,
+        transactionHash: tx.transactionHash,
+      });
+      return receipt.transactionHash;
     } catch (error) {
       console.error("Error repaying loan:", error);
       return [];
