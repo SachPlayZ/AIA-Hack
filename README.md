@@ -1,5 +1,5 @@
-### Deployed Contract Address on Fuji Testnet : 0x614A1F64395FD1b925E347AC13812CC48b62f5B7
-### Snowtrace URL : https://43113.testnet.snowtrace.io/address/0x614A1F64395FD1b925E347AC13812CC48b62f5B7
+### Deployed Contract Address on AIA Testnet : 0x628991DEdBBd26D6B85F1D11599d3C228209979e
+### AIA Scan URL : https://testnet.aiascan.com/address/0x628991DEdBBd26D6B85F1D11599d3C228209979e
 
 ![Ventura11](https://github.com/user-attachments/assets/e5318511-9948-44b5-b268-752427b9c951)
 
