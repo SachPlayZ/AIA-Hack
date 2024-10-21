@@ -6,6 +6,7 @@ import { Navbar } from "@/components/component/Navbar";
 import { cn } from "@/lib/utils";
 import { StateContextProvider } from "@/context";
 import Head from "next/head";
+import { Toaster } from "@/components/ui/toaster";
 
 const fontHeading = Inter({
   subsets: ["latin"],
@@ -42,6 +43,7 @@ export default function RootLayout({
           <StateContextProvider>
             <Navbar />
             {children}
+            <Toaster />
           </StateContextProvider>
         </ThirdwebProvider>
       </body>

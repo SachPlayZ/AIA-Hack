@@ -20,6 +20,7 @@ import { ethers } from "ethers";
 import { client } from "../app/client";
 import { formatEther } from "ethers";
 import { ConnectButton, useActiveAccount } from "thirdweb/react";
+import { useToast } from "@/hooks/use-toast";
 
 const chain = defineChain(1320);
 
@@ -81,6 +82,7 @@ interface StateContextType {
 const StateContext = createContext<StateContextType | undefined>(undefined);
 
 export const StateContextProvider = ({ children }: { children: ReactNode }) => {
+  const { toast } = useToast();
   const activeAccount = useActiveAccount();
   const [address, setAddress] = useState<string>("");
   const [contract, setContract] = useState<any>(null);
@@ -336,9 +338,20 @@ export const StateContextProvider = ({ children }: { children: ReactNode }) => {
         chain,
         transactionHash: tx.transactionHash,
       });
+      toast({
+        title: "Withdrawal Successful",
+        description: "Funds have been withdrawn successfully.",
+        variant: "default", // Customizable variant
+      });
       return receipt.transactionHash;
     } catch (error) {
       console.error("Error withdrawing startup funds:", error);
+
+      toast({
+        title: "Withdrawal Failed",
+        description: "Cannot withdraw funds before deadline",
+        variant: "destructive", // Error variant
+      });
       return [];
     }
   }

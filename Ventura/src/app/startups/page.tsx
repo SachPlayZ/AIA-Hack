@@ -35,6 +35,7 @@ import {
   PopoverTrigger,
   PopoverContent,
 } from "@/components/ui/popover";
+import { useToast } from "@/hooks/use-toast";
 
 interface Campaign {
   owner: string;
@@ -55,6 +56,7 @@ export default function SidebarDemo() {
   const [open, setOpen] = useState(false);
   const [filterMyCampaigns, setFilterMyCampaigns] = useState(false); // New state for filtering campaigns
   const [loading, setLoading] = useState(true); // State for managing loading
+  const { toast } = useToast(); // Initialize the toast hook
 
   useEffect(() => {
     const fetchCampaigns = async () => {
@@ -172,6 +174,8 @@ const Dashboard = ({
   const [viewDetails, setViewDetails] = useState(false);
   const [fundAmount, setFundAmount] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [withdrawLoading, setWithdrawLoading] = useState<boolean>(false);
+  const { toast } = useToast(); // Initialize the toast hook
 
   return (
     <div className="flex flex-1">
@@ -318,11 +322,17 @@ const Dashboard = ({
                             {campaign.owner === address ? (
                               <Button
                                 className="w-32"
-                                onClick={() => {
-                                  withdrawStartupFunds(campaign.pId);
+                                onClick={async () => {
+                                  setWithdrawLoading(true);
+                                  await withdrawStartupFunds(campaign.pId);
+                                  setWithdrawLoading(false);
                                 }}
                               >
-                                Withdraw Funds
+                                {withdrawLoading ? (
+                                  <ClipLoader size={20} color="#fff" />
+                                ) : (
+                                  "Withdraw Funds"
+                                )}
                               </Button>
                             ) : (
                               <Popover>
