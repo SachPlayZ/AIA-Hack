@@ -239,8 +239,8 @@ const Dashboard = ({
                       </CardDescription>
                     </CardHeader>
                     <CardContent>
-                      <p>Target: {campaign.target} AVAX</p>
-                      <p>Amount Collected: {campaign.amountCollected} AVAX</p>
+                      <p>Target: {campaign.target} AIA</p>
+                      <p>Amount Collected: {campaign.amountCollected} AIA</p>
                       <p>
                         {viewDetails ? (
                           daysRemaining > 0 ? (
@@ -275,10 +275,10 @@ const Dashboard = ({
                             <div className="flex flex-col space-y-2">
                               <div className="flex flex-col items-start">
                                 <p className="font-sans text-4xl font-bold">
-                                  {campaign.amountCollected} AVAX
+                                  {campaign.amountCollected} AIA
                                 </p>
                                 <p className="font-sans text-sm text-neutral-500 mb-1">
-                                  collected of {campaign.target} AVAX goal
+                                  collected of {campaign.target} AIA goal
                                 </p>
                               </div>
 
@@ -331,7 +331,7 @@ const Dashboard = ({
                                 </PopoverTrigger>
                                 <PopoverContent>
                                   <Label htmlFor="amount">
-                                    Amount to fund (AVAX)
+                                    Amount to fund (AIA)
                                   </Label>
                                   <Input
                                     id="amount"
